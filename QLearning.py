@@ -16,7 +16,7 @@ class QLearning(Algoritimo):
         super().__init__(env, alpha, gamma, epsilon, epsilon_min, epsilon_dec, episodes)
 
 
-    def train(self, filename, plotFile):
+    def train(self):
         rewards_per_episode = []
         rewards = 0
         for i in range(1, self.episodes+1):
@@ -46,9 +46,7 @@ class QLearning(Algoritimo):
             if self.epsilon > self.epsilon_min:
                 self.epsilon = self.epsilon * self.epsilon_dec
 
-        savetxt(filename, self.q_table, delimiter=',')
-        if (plotFile is not None): self.plotactions(plotFile, rewards_per_episode)
-        return self.q_table
+        return self.q_table , rewards_per_episode
     
     @staticmethod
     def stateNumber(state):

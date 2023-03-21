@@ -8,16 +8,21 @@ warnings.simplefilter("ignore")
 
 env = gym.make('Blackjack-v1', render_mode='ansi')
 
+csv_filename = 'data/q-table-blackjack.csv'
+plot_rewards_filename = 'results/blackjack'
+
 #
 # para treinar a q-table
 #
 
 qlearn = QLearning(env, alpha=0.01, gamma=0.001, epsilon=0.9, epsilon_min=0.01, epsilon_dec=0.99, episodes=1000000)
-q_table = qlearn.train('data/q-table-blackjack.csv', 'results/blackjack')
+q_table , rewards_per_episode  = qlearn.train()
 
-#
+# Salva dados:
+savetxt(csv_filename, self.q_table, delimiter=',')
+qlearn.plotactions(plot_rewards_filename, rewards_per_episode)
+
 # para usar a q-table treinada
-#
 #q_table = loadtxt('data/q-table-blackjack.csv', delimiter=',')
 
 (state, _) = env.reset()
