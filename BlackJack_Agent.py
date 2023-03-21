@@ -18,7 +18,7 @@ warnings.simplefilter("ignore")
 def main():
 
     # Condições do programa:
-    treino = False
+    treino = True
     method = 'qlearning'
 
     # --- Filenames ---
@@ -65,7 +65,7 @@ def main():
                     elif(method ==  'sarsa'):
                         algoritimo = Sarsa(env, alpha=alpha, gamma=gamma, epsilon=epsilon, epsilon_min=epsilon_min, epsilon_dec=epsilon_dec, episodes=episodes)
                     
-                    qtable , rewards_per_episode  = algoritimo.train()
+                    qtable , rewards_per_episode,usable_ace,not_usable_ace  = algoritimo.train()
                     
                     # ----- Calcula percentual de acertos -----
                     goals , wins, ties, loses, list_rewards = test_performance(algoritimo, qtable) 
@@ -84,7 +84,9 @@ def main():
                         best_game_results['ties'] = ties
 
                         # Salva dados
-                        savetxt(csv_filename, qtable, delimiter=',')
+                        #savetxt(csv_filename, qtable, delimiter=',')
+                        savetxt('usable_ace.csv', usable_ace, delimiter=',')
+                        savetxt('not_usable_ace.csv', not_usable_ace, delimiter=',')
 
                         # Faz grafico de acumulativo de rewards
                         plot_test_performance(algoritimo, list_rewards, 100)

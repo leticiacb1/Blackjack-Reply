@@ -2,7 +2,6 @@ import numpy as np
 import random
 from numpy import savetxt
 import matplotlib.pyplot as plt
-
 from Algoritimos import Algoritimo
 
 #
@@ -19,6 +18,8 @@ class QLearning(Algoritimo):
     def train(self):
         rewards_per_episode = []
         rewards = 0
+        usable_ace = np.zeros((21,10))
+        not_usable_ace = np.zeros((21,10))
         for i in range(1, self.episodes+1):
             (state, _) = self.env.reset()
             done = False
@@ -26,6 +27,10 @@ class QLearning(Algoritimo):
             while not done:
                 n_state = QLearning.stateNumber(state)
                 action = self.select_action(n_state)
+                if state[2]:
+                    usable_ace[state[0]-1,state[1]-1] = action
+                else:
+                    not_usable_ace[state[0]-1,state[1]-1] = action
                 next_state, reward, done, _, _ = self.env.step(action) 
                 n_next_state = QLearning.stateNumber(next_state)
 
@@ -45,5 +50,4 @@ class QLearning(Algoritimo):
             
             if self.epsilon > self.epsilon_min:
                 self.epsilon = self.epsilon * self.epsilon_dec
-
-        return self.q_table , rewards_per_episode
+        return self.q_table , rewards_per_episode, usable_ace, not_usable_ace

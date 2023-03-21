@@ -52,4 +52,4 @@ class Sarsa(Algoritimo):
             if self.epsilon > self.epsilon_min:
                 self.epsilon = self.epsilon * self.epsilon_dec
         
-        return self.q_table , reward_per_episode 
+        return self.q_table , reward_per_episode ,_,_

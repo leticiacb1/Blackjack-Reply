@@ -24,7 +24,7 @@ print('Spaces: '+ str(env.observation_space))
 
 print('\n')
 print('Inicializando o jogo...')
-state , _ = env.reset()
+state  = env.reset()
 # print(f'Soma das cartas do meu jogador: {state[0][0]}')
 # print(f'Carta que o dealer está mostrando: {state[0][1]}')
 # print(f'O meu jogador tem um Ás? {state[0][2]}')
