@@ -36,5 +36,7 @@ o parâmetro método define com qual algorítimo o treino será feito Sarsa (**m
 | epsilon_min     |  0.0001    |
 | qtd_episodios   |   100000   |
 
+O arquivo `data/info_parameters.json` apresenta o desempenho de cada um dos hyperparâmetros utiliazdos para o treino.
+
 
 ### Gráfico Qtable
