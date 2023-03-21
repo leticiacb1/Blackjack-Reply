@@ -12,6 +12,10 @@ def test_performance(algoritimo, qtable):
     list_rewards = []
     goals = 0
 
+    win = 0
+    tie = 0
+    lose = 0
+
     for i in range(0,100):    
         
         (state, _) = env.reset()
@@ -26,7 +30,14 @@ def test_performance(algoritimo, qtable):
         
             epochs +=1
         
+        if(reward == 1):
+            win+=1
+        elif(reward == -1):
+            lose+=1
+        else:
+            tie+=1
+
         goals += reward
         list_rewards.append(reward)
 
-    return goals , list_rewards
+    return goals, win, tie, lose, list_rewards

@@ -3,12 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from QLearning import QLearning
 from Sarsa import Sarsa
+from Algoritimos import Algoritimo
 from numpy import loadtxt
 from progress.bar import IncrementalBar
 from show_graphics import plot_test_performance
 import json
 from numpy import savetxt
 from test_performance import *
+import sys
 import warnings
 warnings.simplefilter("ignore")
 
@@ -16,7 +18,7 @@ warnings.simplefilter("ignore")
 def main():
 
     # Condições do programa:
-    treino = True
+    treino = False
     method = 'qlearning'
 
     # --- Filenames ---
@@ -26,13 +28,13 @@ def main():
 
     if(treino):
         # ----- Parâmetros para GridSearch ----
-        list_alpha = [0.000001, 0.01, 0.03, 0.05 , 0.5, 0.1 , 0.15 , 0.6 ]   
-        list_gamma = [0.000001, 0.1, 0.3 , 0.5, 0.85 , 0.95 ]  
-        list_epsilon = [0.1, 0.3 , 0.5 , 0.88,  0.9, 0.95 ] 
+        list_alpha = [ 0.0001, 0.1 , 0.15 ]   
+        list_gamma = [ 0.3 ,  0.9,  0.98]  
+        list_epsilon = [0.001, 0.1,  0.95 ] 
 
         epsilon_min = 0.0001
         epsilon_dec = 0.9999
-        episodes  = 20000 
+        episodes  = 100000
 
         # ----- Barra de Progresso ----
         size = len(list_alpha)*len(list_gamma)*len(list_epsilon)
@@ -42,7 +44,8 @@ def main():
         #  {"alpha - gamma - epsilon" = { %acertos , [1,-1,0,1,1 ...] } , ...}    
 
         best_goal = 0
-        dic_goals = {}         
+        dic_goals = {}    
+        best_game_results = {'wins': 0 , 'losts' : 0 , 'ties': 0}     
 
         # ----- GridSearch -----
         print("\n----------------------------------------------------")
@@ -65,16 +68,20 @@ def main():
                     qtable , rewards_per_episode  = algoritimo.train()
                     
                     # ----- Calcula percentual de acertos -----
-                    goals , list_rewards = test_performance(algoritimo, qtable) 
+                    goals , wins, ties, loses, list_rewards = test_performance(algoritimo, qtable) 
                     
                     # ----- Monta dicionário com desempenhos -----
                     parameters_str = f"{alpha} - {gamma} - {epsilon}"
-                    dic_goals[parameters_str] = [goals , list_rewards]
+                    dic_goals[parameters_str] = goals
                     
                     # ----- Salva melhores parâmetros -----
                     if(goals > best_goal):
                         best_goal = goals
                         best_set = [alpha, gamma, epsilon]
+
+                        best_game_results['wins'] = wins
+                        best_game_results['losts'] = loses
+                        best_game_results['ties'] = ties
 
                         # Salva dados
                         savetxt(csv_filename, qtable, delimiter=',')
@@ -93,7 +100,17 @@ def main():
         print(f"\n > Gamma : {best_set[1]}\n")
         print(f"\n > Epsilon : {best_set[2]}\n")
         
-        print(f"\n > Percentual de acertos : {best_goal} % \n")
+        print(f"\n > Percentual de acertos : {wins + ties} % \n")    
+
+        print("\n----------------------------------------------------")
+        print("                BEST GAME RESULTS                   ")
+        print("----------------------------------------------------\n") 
+
+        print(f"\n > Venceu : {best_game_results['wins']} % \n")
+        print(f"\n > Perdeu : {best_game_results['losts']} % \n")
+        print(f"\n > Empatou : {best_game_results['ties']} %\n")
+
+        print(f"\n > Percentual de acertos : {wins + ties} % \n")   
 
         # --- Salva dicionario de Grid Search ---
         with open(parameters_filename, 'w') as fp:
@@ -102,32 +119,25 @@ def main():
     else:
         
         # ----- Utiliza tabela já treinada -----
-        q_table = loadtxt(csv_filename, delimiter=',')
+        qtable = loadtxt(csv_filename, delimiter=',')
+
+        # ----- Ambiente e algorítimo (Qualquer um) -----
+        env = gym.make('Blackjack-v1', render_mode='ansi')
+        algoritimo = Algoritimo(env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_min=0.0001, epsilon_dec= 0.9999, episodes=1000)
 
         # ----- Calcula percentual de acertos -----
-        goals , list_rewards = test_performance(qtable) 
+        goals , wins, ties, loses, list_rewards = test_performance(algoritimo, qtable) 
 
-        print(f"\n > Percentual de acertos : {best_goal} % \n")        
+        print("\n----------------------------------------------------")
+        print("                BEST GAME RESULTS                   ")
+        print("----------------------------------------------------\n") 
 
-    # (state, _) = env.reset()
-    # done = False
+        print(f"\n > Venceu : {wins} % \n")
+        print(f"\n > Perdeu : {loses} % \n")
+        print(f"\n > Empatou : {ties} %\n")
 
-    # while not done:
-    #     print(state)
-    #     n_state = QLearning.stateNumber(state)
-    #     action = np.argmax(q_table[n_state])
-    #     state, reward, done, truncated, info = env.step(action)
-    #     print(f' Jogando: {action}')
-        
-    # print(f' Cartas do meu jogador: {env.player}')
-    # print(f' Cartas do dealer: {env.dealer}')
-
-    # if reward == 1:
-    #     print('Meu jogador venceu')
-    # elif reward == 0:
-    #     print('Jogo empatou')
-    # elif reward == -1:
-    #     print('Dealer ganhou')
+        print(f"\n > Percentual de acertos : {wins + ties} % \n")        
 
 if __name__ == '__main__':
+
     main()
