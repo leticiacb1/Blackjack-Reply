@@ -28,9 +28,9 @@ def main():
 
     if(treino):
         # ----- Parâmetros para GridSearch ----
-        list_alpha = [ 0.0001, 0.1 , 0.15 ]   
-        list_gamma = [ 0.3 ,  0.9,  0.98]  
-        list_epsilon = [0.001, 0.1,  0.95 ] 
+        list_alpha = [ 0.0001, 0.1 , 0.15  , 0.4]   
+        list_gamma = [ 0.01, 0.3 , 0.4, 0.9,  0.98]  
+        list_epsilon = [0.001, 0.5,  0.6,0.95 ] 
 
         epsilon_min = 0.0001
         epsilon_dec = 0.9999
@@ -110,7 +110,7 @@ def main():
         print(f"\n > Perdeu : {best_game_results['losts']} % \n")
         print(f"\n > Empatou : {best_game_results['ties']} %\n")
 
-        print(f"\n > Percentual de acertos : {wins + ties} % \n")   
+        print(f"\n > Percentual de acertos : {best_game_results['wins'] + best_game_results['ties']} % \n")   
 
         # --- Salva dicionario de Grid Search ---
         with open(parameters_filename, 'w') as fp:

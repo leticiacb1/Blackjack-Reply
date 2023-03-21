@@ -24,19 +24,20 @@ print('Spaces: '+ str(env.observation_space))
 
 print('\n')
 print('Inicializando o jogo...')
-state = env.reset()
-print(f'Soma das cartas do meu jogador: {state[0][0]}')
-print(f'Carta que o dealer está mostrando: {state[0][1]}')
-print(f'O meu jogador tem um Ás? {state[0][2]}')
+state , _ = env.reset()
+# print(f'Soma das cartas do meu jogador: {state[0][0]}')
+# print(f'Carta que o dealer está mostrando: {state[0][1]}')
+# print(f'O meu jogador tem um Ás? {state[0][2]}')
 
+print(state[0][2])
 done = False
 
 while not done:
     action = int(input("Pedir por mais cartas (1) ou parar (0)? "))
     state, reward, done, truncated, info = env.step(action)
-    print(f'Soma das cartas do meu jogador: {state[0]}')
-    print(f'Carta que o dealer está mostrando: {state[1]}')
-    print(f'O meu jogador tem um Ás? {state[2]}')
+    # print(f'Soma das cartas do meu jogador: {state[0]}')
+    # print(f'Carta que o dealer está mostrando: {state[1]}')
+    # print(f'O meu jogador tem um Ás? {state[2]}')
 
 print('\n')
 if reward == 1:
