@@ -50,7 +50,7 @@ o parâmetro método define com qual algorítimo o treino será feito Sarsa (**m
 
 O arquivo `data/info_parameters.json` apresenta o desempenho de cada um dos hyperparâmetros utiliazdos para o treino.
 
-<img src="best_result.png" />
+<img src="results/best_result.png" />
 
 </div>
 
@@ -63,11 +63,11 @@ Foram plotadas as situações encontradas pela Qtable, gerando assim duas visual
 
 <div align="center" style="max-width:68rem;">
 
-<img src='Usable_ace.png'/>
+<img src='results/Usable_ace.png'/>
 
 </div>
 
 * Já a figura abaixo, mostra a representação de ações tomadas quando o ás não é útil, seguindo a mesma representação anterior: 
 <div align="center" style="max-width:68rem;">
-<img src='Not_usable_ace.png'/>
+<img src='results/Not_usable_ace.png'/>
 </div>

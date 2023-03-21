@@ -18,7 +18,7 @@ warnings.simplefilter("ignore")
 def main():
 
     # Condições do programa:
-    treino = True
+    treino = False
     method = 'qlearning'
 
     # --- Filenames ---
@@ -84,9 +84,9 @@ def main():
                         best_game_results['ties'] = ties
 
                         # Salva dados
-                        #savetxt(csv_filename, qtable, delimiter=',')
-                        savetxt('usable_ace.csv', usable_ace, delimiter=',')
-                        savetxt('not_usable_ace.csv', not_usable_ace, delimiter=',')
+                        savetxt(csv_filename, qtable, delimiter=',')
+                        savetxt('data/usable_ace.csv', usable_ace, delimiter=',')
+                        savetxt('data/not_usable_ace.csv', not_usable_ace, delimiter=',')
 
                         # Faz grafico de acumulativo de rewards
                         plot_test_performance(algoritimo, list_rewards, 100)
