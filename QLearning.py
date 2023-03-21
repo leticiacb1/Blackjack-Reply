@@ -47,10 +47,3 @@ class QLearning(Algoritimo):
                 self.epsilon = self.epsilon * self.epsilon_dec
 
         return self.q_table , rewards_per_episode
-    
-    @staticmethod
-    def stateNumber(state):
-        (x,y,z) = state
-        y = y * 32
-        z = z * 352
-        return x+y+z

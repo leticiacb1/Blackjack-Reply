@@ -2,9 +2,12 @@ import gymnasium as gym
 import numpy as np
 import matplotlib.pyplot as plt
 from QLearning import QLearning
+from Sarsa import Sarsa
 from numpy import loadtxt
 from progress.bar import IncrementalBar
+from show_graphics import plot_test_performance
 import json
+from numpy import savetxt
 from test_performance import *
 import warnings
 warnings.simplefilter("ignore")
@@ -14,22 +17,22 @@ def main():
 
     # Condições do programa:
     treino = True
-    algoritimo = 'qlearning'
+    method = 'qlearning'
 
     # --- Filenames ---
     csv_filename = 'data/q-table-blackjack.csv'
-    plot_rewards_filename = 'results/blackjack.png'
+    plot_rewards_filename = 'results/blackjack.jpg'
     parameters_filename = 'data/info_parameters.json'
 
     if(treino):
         # ----- Parâmetros para GridSearch ----
-        list_alpha = [0.01, 0.03, 0.05 , 0.5, 0.1 , 0.15]   
-        list_gamma = [0.85 , 0.95 , 0.98]  
-        list_epsilon = [0.88,  0.9, 0.95 , 0.98] 
+        list_alpha = [0.000001, 0.01, 0.03, 0.05 , 0.5, 0.1 , 0.15 , 0.6 ]   
+        list_gamma = [0.000001, 0.1, 0.3 , 0.5, 0.85 , 0.95 ]  
+        list_epsilon = [0.1, 0.3 , 0.5 , 0.88,  0.9, 0.95 ] 
 
         epsilon_min = 0.0001
         epsilon_dec = 0.9999
-        episodes  = 18000 
+        episodes  = 20000 
 
         # ----- Barra de Progresso ----
         size = len(list_alpha)*len(list_gamma)*len(list_epsilon)
@@ -54,14 +57,15 @@ def main():
                     env = gym.make('Blackjack-v1', render_mode='ansi')
 
                     # ----- Treina modelo -----
-                    if(algoritimo ==  'qlearning'):
-                        qlearn = QLearning(env, alpha=alpha, gamma=gamma, epsilon=epsilon, epsilon_min=epsilon_min, epsilon_dec=epsilon_dec, episodes=episodes)
-                        qtable , rewards_per_episode  = qlearn.train()
-                    else:
-                        print("Coloca o Sarsa aqui !")
+                    if(method ==  'qlearning'):
+                        algoritimo = QLearning(env, alpha=alpha, gamma=gamma, epsilon=epsilon, epsilon_min=epsilon_min, epsilon_dec=epsilon_dec, episodes=episodes)
+                    elif(method ==  'sarsa'):
+                        algoritimo = Sarsa(env, alpha=alpha, gamma=gamma, epsilon=epsilon, epsilon_min=epsilon_min, epsilon_dec=epsilon_dec, episodes=episodes)
+                    
+                    qtable , rewards_per_episode  = algoritimo.train()
                     
                     # ----- Calcula percentual de acertos -----
-                    goals , list_rewards = test_performance(qtable) 
+                    goals , list_rewards = test_performance(algoritimo, qtable) 
                     
                     # ----- Monta dicionário com desempenhos -----
                     parameters_str = f"{alpha} - {gamma} - {epsilon}"
@@ -74,6 +78,9 @@ def main():
 
                         # Salva dados
                         savetxt(csv_filename, qtable, delimiter=',')
+
+                        # Faz grafico de acumulativo de rewards
+                        plot_test_performance(algoritimo, list_rewards, 100)
 
                     # --- Atualiza Progresso ---
                     bar.next()
@@ -90,7 +97,7 @@ def main():
 
         # --- Salva dicionario de Grid Search ---
         with open(parameters_filename, 'w') as fp:
-            json.dump(dic_goals ,file)  
+            json.dump(dic_goals ,fp)  
 
     else:
         

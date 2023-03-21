@@ -28,7 +28,14 @@ class Algoritimo():
         plt.xlabel(x_label)
         plt.ylabel(y_label)
         plt.title(titulo)
-        plt.xlim(0,800)
+        plt.xlim(0,100)
         plt.grid(True)
-        plt.savefig(filename+".jpg")     
+        plt.savefig(filename)     
         plt.close()
+    
+    @staticmethod
+    def stateNumber(state):
+        (x,y,z) = state
+        y = y * 32
+        z = z * 352
+        return x+y+z

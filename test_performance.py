@@ -1,7 +1,9 @@
-from QLearning import *
+from Algoritimos import Algoritimo
+import numpy as np
 import gymnasium as gym
 
-def test_performance(qtable):
+
+def test_performance(algoritimo, qtable):
     '''
         Retorna lista de acertos do modelo e percentual de acertos
     '''
@@ -16,16 +18,15 @@ def test_performance(qtable):
         done = False
         epochs = 0
 
-        while (not done) and (epochs < 300):
+        while (not done) and (epochs < 100):
 
-            n_state = QLearning.stateNumber(state)
+            n_state = algoritimo.stateNumber(state)
             action = np.argmax(qtable[n_state])
             state, reward, done, truncated, info = env.step(action)
-            #print(f' Jogando: {action}')
-            
-            list_rewards.append(reward)
+        
             epochs +=1
         
         goals += reward
+        list_rewards.append(reward)
 
     return goals , list_rewards
