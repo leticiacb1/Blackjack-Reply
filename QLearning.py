@@ -3,7 +3,7 @@ import random
 from numpy import savetxt
 import matplotlib.pyplot as plt
 
-from Algoritimo import Algoritimo
+from Algoritimos import Algoritimo
 
 #
 # Esta é uma versão do Q-Learning com adicao de um metodo para tratamento dos estados
@@ -38,10 +38,10 @@ class QLearning(Algoritimo):
                 state = next_state
                 rewards += reward
 
-            if i % 1000 == 0:
-                rewards_per_episode.append(rewards)
-                print("Episodes: " + str(i) +' Rewards: '+str(rewards))
-                rewards = 0
+            # if i % 1000 == 0:
+            #     rewards_per_episode.append(rewards)
+            #     print("Episodes: " + str(i) +' Rewards: '+str(rewards))
+            #     rewards = 0
             
             if self.epsilon > self.epsilon_min:
                 self.epsilon = self.epsilon * self.epsilon_dec
