@@ -29,7 +29,7 @@ class Sarsa(Algoritimo):
                 next_state, reward, done, truncated, _ = self.env.step(action)     # Executa uma ação
 
                 # Next action:
-                n_next_state = QLearning.stateNumber(next_state)
+                n_next_state = Sarsa.stateNumber(next_state)
                 next_action = self.select_action(n_next_state) 
 
                 # Itera sobre Q-table:

@@ -71,3 +71,11 @@ Foram plotadas as situações encontradas pela Qtable, gerando assim duas visual
 <div align="center" style="max-width:68rem;">
 <img src='results/Not_usable_ace.png'/>
 </div>
+
+### Este modelo pode ser usada em situações reais?
+
+Apesar de apresentar uma média relativamente adequada (um pouco mais da metade dos jogos, o algoritmo tende a vencer), em situações reais, este não deve apresentar ou ser uma referência de eficácia comprovada devido a outros fatores, como:
+
+* Aleatoriedade do baralho utilizado, pode-se levar em consideração técnicas de embaralhamento que para jogadores experientes, podem se tornar uma alternativa a se identificar cartas próximas e assim reduzir a tendência de escolha proposta pelo algoritmo;
+* Contagem de cartas: isto é, jogadores experientes tendem a saber de acordo com as cartas que já apareceram, quais serão as outras que devem aparecer e assim pautar suas ações baseadas nesse fator, que em geral não são levadas em conta pelo ambiente.
+* Modalidade escolhida: No próprio ambiente existem duas modalidades de jogo a serem escolhidas (natural ou Sutton & Barto), nas quais existem variações de regras, dessa forma, seriam necessária a adatação do modelo para a situação escolhida, o que em termos gerais pode ser um problema para tomada de decisão caso não se conheça as regras de antemão e tenha-se um modelo treinado para estas condições.
