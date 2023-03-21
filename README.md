@@ -38,5 +38,7 @@ o parâmetro método define com qual algorítimo o treino será feito Sarsa (**m
 
 O arquivo `data/info_parameters.json` apresenta o desempenho de cada um dos hyperparâmetros utiliazdos para o treino.
 
+<img src="best_result.png" />
+
 
 ### Gráfico Qtable
