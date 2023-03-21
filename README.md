@@ -23,17 +23,18 @@ O parâmetro de treino indica se será feita uma GridSearch para a busca dos mel
 
 o parâmetro método define com qual algorítimo o treino será feito Sarsa (**method = sarsa**) ou QLearning (**method = qlearning**).
 
-### Melhores Hyperparâmetros
+### Melhores Hyperparâmetros - 64% de "não derrotas"
 
 
 | Atributo        |  Valor     |
 |:----------------|:----------:|
-| Algoritmo       |       |
-| alpha           |        |
-| gamma           |        |
-| epsilon         |       |
-| epsilon_dec     |     |
-| epsilon_min     |      |
-| qtd_episodios   |      |
+| Algoritmo       | Qlearning  |
+| alpha           |  0.0001    |
+| gamma           |    0.4     |
+| epsilon         |    0.95    |
+| epsilon_dec     |   0.9999   |
+| epsilon_min     |  0.0001    |
+| qtd_episodios   |   100000   |
+
 
 ### Gráfico Qtable
