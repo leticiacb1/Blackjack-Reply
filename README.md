@@ -1,4 +1,4 @@
-##  blackjack-reply98 🃏️
+## 🃏️ Blackjack Agent
 
 <div align="center" style="max-width:68rem;">
 <table>
@@ -12,7 +12,7 @@
 </div>
 
 
-### Bibliotecas ⚙️
+### ⚙️ Bibliotecas 
 
 Instale as dependências:
 
@@ -20,7 +20,7 @@ Instale as dependências:
   pip install -r requirements.txt
 ```
 
-### Parâmetros para o código 📌️
+### 📌️ Parâmetros para o código 
 
 Nas primeiras linhas do código temos o seguinte:
 
@@ -34,7 +34,7 @@ O parâmetro de treino indica se será feita uma GridSearch para a busca dos mel
 
 o parâmetro método define com qual algorítimo o treino será feito Sarsa (**method = sarsa**) ou QLearning (**method = qlearning**).
 
-### Melhores Hyperparâmetros - 64% de "não derrotas" (Soma de vitórias e empates)
+#### Melhores Hyperparâmetros - 64% de "não derrotas" (Soma de vitórias e empates)
 
 <div align="center" style="max-width:68rem;">
 
@@ -54,10 +54,8 @@ O arquivo `data/info_parameters.json` apresenta o desempenho de cada um dos hype
 
 </div>
 
-### Gráfico Qtable
+### 📊️ Gráfico Qtable
 Foram plotadas as situações encontradas pela Qtable, gerando assim duas visualizações distintas dos estados possíveis (Soma da mão do jogador vs Carta apresentada pelo Dealer):
-
-
 
 * Quando o ás é uma carta útil, as ações tomadas pelo algoritmo são descritas pela figura abaixo, onde quadrados verdes representam a **ação de continuar pedindo cartas** e quadrados roxos representam a **ação de parar o jogo**.
 
