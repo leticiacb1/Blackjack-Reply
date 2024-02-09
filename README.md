@@ -70,7 +70,7 @@ Foram plotadas as situações encontradas pela Qtable, gerando assim duas visual
 <img src='results/Not_usable_ace.png'/>
 </div>
 
-### Este modelo pode ser usada em situações reais?
+### 🗿️ Este modelo pode ser usada em situações reais?
 
 Apesar de apresentar uma média relativamente adequada (um pouco mais da metade dos jogos, o algoritmo tende a vencer), em situações reais, este não deve apresentar ou ser uma referência de eficácia comprovada devido a outros fatores, como:
 
